@@ -28,8 +28,8 @@
             },
             "visible": true,
             "shape": "trust-boundary-box",
-            "id": "cf621b83-6852-49e8-8c9b-e2e50226230e",
             "zIndex": -1,
+            "id": "cf621b83-6852-49e8-8c9b-e2e50226230e",
             "data": {
               "type": "tm.BoundaryBox",
               "name": "Trust Boundary",
@@ -52,13 +52,14 @@
                 "text": "Administrator "
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -142,16 +143,33 @@
               ]
             },
             "id": "a096999f-d11b-4cd5-b117-d52daf5f6433",
-            "zIndex": 1,
             "data": {
               "type": "tm.Actor",
               "name": "Administrator ",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "771d6dbf-2e81-4e98-b5fe-9dc579e78a38",
+                  "title": "Malicious user pretending to be an authorized admin.",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "An attacker could pretend to be an administrator and access sensitive functionality.\n\n",
+                  "mitigation": "Require strong authentication (e.g., MFA) and enforce session timeout",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": "8"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 0
+              }
             }
           },
           {
@@ -175,6 +193,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 2,
             "ports": {
               "groups": {
                 "top": {
@@ -258,7 +277,6 @@
               ]
             },
             "id": "1b7202fb-4423-4a2c-ab22-0217648d4d9d",
-            "zIndex": 2,
             "data": {
               "type": "tm.Process",
               "name": "Candidate \nRegistration\n Decision",
@@ -287,16 +305,19 @@
                 "text": "CSV File"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 3,
             "ports": {
               "groups": {
                 "top": {
@@ -380,20 +401,52 @@
               ]
             },
             "id": "af383f82-b361-41d7-8d76-771fd08200be",
-            "zIndex": 3,
             "data": {
               "type": "tm.Store",
               "name": "CSV File",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "f192a1c9-65e8-479b-bed2-3f353d32660c",
+                  "title": "Tampered CSV Content",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "A user could upload a manipulated CSV with malicious payloads (e.g., formula injection or malformed data).",
+                  "mitigation": "Sanitize and validate all CSV input, scan for known exploits.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "8"
+                },
+                {
+                  "id": "ea88c39f-c3d8-470c-bcdb-fa9633a93f5c",
+                  "title": "CSV with Sensitive Data",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Uploaded CSV may unintentionally expose personally identifiable information (PII).",
+                  "mitigation": "Require CSV validation and limit accepted fields. Notify user of risks.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "5"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 2,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             }
           },
           {
@@ -835,13 +888,14 @@
                 "text": "Fill Candidate \nForm"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 11,
             "ports": {
               "groups": {
                 "top": {
@@ -925,19 +979,53 @@
               ]
             },
             "id": "abad68cb-8049-4f02-929f-ece58c9c7f6e",
-            "zIndex": 11,
             "data": {
               "type": "tm.Process",
               "name": "Fill Candidate \nForm",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "483310f6-688a-4cdf-a493-76a6136bea6c",
+                  "title": "Form Field Injection",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": " A user may manipulate form fields (e.g., through dev tools) to submit invalid or malicious data.",
+                  "mitigation": "Validate input on the server side, not just client-side.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": "8"
+                },
+                {
+                  "id": "18884b3e-ff8e-41ed-8702-4b5bd1898ee6",
+                  "title": "Form Data Interception",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Without HTTPS, form data could be intercepted and expose personal details.",
+                  "mitigation": "Enforce HTTPS on all endpoints.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": "8"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -954,13 +1042,14 @@
                 "text": "Load and Parse \nCSV Data"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 12,
             "ports": {
               "groups": {
                 "top": {
@@ -1044,19 +1133,40 @@
               ]
             },
             "id": "b6315660-3179-4548-8c47-34f547324be1",
-            "zIndex": 12,
             "data": {
               "type": "tm.Process",
               "name": "Load and Parse \nCSV Data",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "892110e6-bdad-4b16-91b2-e3331ae08a7e",
+                  "title": "Resource Exhaustion from Parsing",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "A malformed CSV could cause infinite loops or memory exhaustion.\n\n",
+                  "mitigation": "Use defensive coding and streaming parsers with limits.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": "6"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -1073,13 +1183,14 @@
                 "text": "Candidates’ \ninformation saved"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 13,
             "ports": {
               "groups": {
                 "top": {
@@ -1163,19 +1274,66 @@
               ]
             },
             "id": "03d924ad-178c-4e71-ab93-6e0b050f7980",
-            "zIndex": 13,
             "data": {
               "type": "tm.Process",
               "name": "Candidates’ \ninformation saved",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "7491e00a-a68f-44df-8f07-435eeb0dbb73",
+                  "title": "Malicious Data in DB",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "If input is not validated, harmful or incorrect data could be saved.",
+                  "mitigation": "Validate and sanitize all data before inserting into MongoDB.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": "8"
+                },
+                {
+                  "id": "6f8ee832-d757-4c83-b76d-5c625933ae6d",
+                  "title": "Database Abuse",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "Bulk inserts or poorly controlled loops can overwhelm the DB.",
+                  "mitigation": "Add server-side limits, throttle requests, and use async queues if needed.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": "7"
+                },
+                {
+                  "id": "19afc0b4-a598-40e4-8263-1ff74bcd975e",
+                  "title": "No Action Traceability",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "No records of who submitted what, making it hard to audit.",
+                  "mitigation": "Record admin user ID and timestamp with each candidate submission.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": "6"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -1192,16 +1350,19 @@
                 "text": "MongoDB"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 14,
             "ports": {
               "groups": {
                 "top": {
@@ -1285,20 +1446,39 @@
               ]
             },
             "id": "bf35432e-eccf-42a5-ad29-769f85a5871a",
-            "zIndex": 14,
             "data": {
               "type": "tm.Store",
               "name": "MongoDB",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "f7721267-5451-4bfc-beab-8f9705f270d9",
+                  "title": "Unauthorized Access",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "If improperly secured, MongoDB could leak sensitive data.",
+                  "mitigation": "Use encrypted connections, access controls, and data encryption at rest.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": "9"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             }
           }
         ]
@@ -1306,6 +1486,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "",
-    "threatTop": 0
+    "threatTop": 10
   }
 }
